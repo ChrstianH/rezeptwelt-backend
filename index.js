@@ -2,17 +2,18 @@ const express = require("express");
 const cors = require("cors");
 const app = express();
 const mysql = require("mysql");
+require("dotenv").config();
 
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 
 const con = mysql.createConnection({
-  host: "akibp.h.filess.io",
-  user: "recipes_parkstart",
-  password: "b2ae33fd300e4fd8e601ff6627056664eb32ef26",
-  database: "recipes_parkstart",
-  port: 3305,
+  host: process.env.DB_HOST,
+  user: process.env.DB_USER,
+  password: process.env.DB_PASSWORD,
+  database: process.env.DB_DATABASE,
+  port: process.env.DB_PORT,
 });
 
 // Get highest rated recipes
