@@ -28,8 +28,8 @@ app.get("/", (_req, res) => {
 });
 
 // Get information of the specified recipe
-app.post("/recipe", (req, res) => {
-  const recipe_id = req.body["recipe_id"];
+app.get("/recipe", (req, res) => {
+  const recipe_id = req.query.recipe_id;
   con.query(
     "SELECT id, image_url, name, instructions, description FROM recipes WHERE id = ? LIMIT 1",
     [recipe_id],
