@@ -17,9 +17,20 @@ const con = mysql.createConnection({
 });
 
 // Get highest rated recipes
-app.get("/", (_req, res) => {
+app.get("/getMostPopular", (_req, res) => {
   con.query(
     "SELECT id, image_url, name, description FROM recipes ORDER BY rating DESC LIMIT 3",
+    (err, result) => {
+      if (err) throw err;
+      res.send(result);
+    }
+  );
+});
+
+// Get most recent recipes
+app.get("/getMostRecent", (_req, res) => {
+  con.query(
+    "SELECT id, image_url, name, description FROM recipes ORDER BY created_at DESC LIMIT 3",
     (err, result) => {
       if (err) throw err;
       res.send(result);
@@ -31,10 +42,37 @@ app.get("/", (_req, res) => {
 app.get("/recipe", (req, res) => {
   const recipe_id = req.query.recipe_id;
   con.query(
-    "SELECT id, image_url, name, instructions, description FROM recipes WHERE id = ? LIMIT 1",
+    "SELECT id, image_url, name, description FROM recipes WHERE id = ?",
     [recipe_id],
     (err, result) => {
       if (err) throw err;
+      res.send(result);
+    }
+  );
+});
+
+// Get instructions for the specified recipe
+app.get("/getInstructions", (req, res) => {
+  const recipe_id = req.query.recipe_id;
+  con.query(
+    "SELECT instruction_text FROM instructions WHERE recipe_id = ?",
+    [recipe_id],
+    (err, result) => {
+      if (err) throw err;
+      res.send(result);
+    }
+  );
+});
+
+// Get ingredients for the specified recipe
+app.get("/getIngredients", (req, res) => {
+  const recipe_id = req.query.recipe_id;
+  con.query(
+    "SELECT name, quantity, unit, additional_info FROM ingredients WHERE recipe_id = ?",
+    [recipe_id],
+    (err, result) => {
+      if (err) throw err;
+      console.log(result);
       res.send(result);
     }
   );
