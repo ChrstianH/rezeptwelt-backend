@@ -30,12 +30,12 @@ async function buildProject() {
 
     // 4. Server-Code kopieren (z.B. src-Ordner nach dist/src)
     // fs.copy kümmert sich rekursiv um alle Unterordner
-    await fs.copy(path.resolve("src"), path.join(DIST_DIR, "src"));
-    console.log("-> Server-Quellcode (src/) kopiert.");
+    // await fs.copy(path.resolve("src"), path.join(DIST_DIR, "src"));
+    // console.log("-> Server-Quellcode (src/) kopiert.");
 
     // 5. Statische Assets kopieren (public-Ordner nach dist/public)
-    await fs.copy(path.resolve("public"), path.join(DIST_DIR, "public"));
-    console.log("-> Statische Assets (public/) kopiert.");
+    // await fs.copy(path.resolve("public"), path.join(DIST_DIR, "public"));
+    // console.log("-> Statische Assets (public/) kopiert.");
 
     console.log(
       "--- Build erfolgreich abgeschlossen! Der dist-Ordner ist bereit. ---"
