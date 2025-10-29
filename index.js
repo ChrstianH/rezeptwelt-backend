@@ -35,6 +35,10 @@ const downloadPicture = async (picUrl) => {
   }
 };
 
+app.get("/", (req, res) => {
+  res.send("Hello from Rezeptwelt Backend!");
+});
+
 app.get("/getImage/:imageName", (req, res) => {
   const imageName = req.params.imageName;
   const filePath = path.join(__dirname, imageName);
