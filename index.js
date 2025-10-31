@@ -26,7 +26,7 @@ const downloadPicture = async (picUrl) => {
       port: process.env.FTP_PORT,
     });
 
-    await ftpClient.downloadTo(localPath, remotePath);
+    await ftpClient.downloadTo(localPath, process.env.FTP_HOST + remotePath);
     console.log(`Datei erfolgreich heruntergeladen: ${remotePath}`);
   } catch (err) {
     console.error("Fehler beim FTP-Download:", err);
@@ -41,9 +41,10 @@ app.get("/", (req, res) => {
 
 app.get("/getImage/:imageName", (req, res) => {
   const imageName = req.params.imageName;
+  console.log(imageName);
   const filePath = path.join(__dirname, imageName);
-  res.send(filePath, (err) => {
-    //  res.sendFile(filePath, (err) => {
+  //res.send(filePath, (err) => {
+  res.sendFile(filePath, (err) => {
     if (err) {
       console.error("Fehler beim Senden der Datei:", err);
       res.status(500).send("Datei nicht gefunden.");
