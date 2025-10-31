@@ -42,7 +42,8 @@ app.get("/", (req, res) => {
 app.get("/getImage/:imageName", (req, res) => {
   const imageName = req.params.imageName;
   const filePath = path.join(__dirname, imageName);
-  res.sendFile(filePath, (err) => {
+  res.send(filePath, (err) => {
+    //  res.sendFile(filePath, (err) => {
     if (err) {
       console.error("Fehler beim Senden der Datei:", err);
       res.status(500).send("Datei nicht gefunden.");
