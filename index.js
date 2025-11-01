@@ -33,7 +33,8 @@ const downloadPicture = async (picUrl) => {
     console.log(
       await ftpClient.list(
         "/rezeptwelt/recipePhotos/bddae62f-aae0-4d2e-bd3d-fd50ac86be53"
-      )
+      ),
+      36
     );
     await ftpClient.downloadTo(localPath, process.env.FTP_HOST + remotePath);
     console.log(`Datei erfolgreich heruntergeladen: ${remotePath}`);
@@ -53,12 +54,12 @@ app.get("/getImage", (req, res) => {
   console.log(imageName);
   downloadPicture(imageName);
   //res.send(filePath, (err) => {
-  res.sendFile(filePath, (err) => {
-    if (err) {
-      console.error("Fehler beim Senden der Datei:", err);
-      res.status(500).send("Datei nicht gefunden.");
-    }
-  });
+  //res.sendFile(filePath, (err) => {
+  //  if (err) {
+  //    console.error("Fehler beim Senden der Datei:", err);
+  //    res.status(500).send("Datei nicht gefunden.");
+  //  }
+  //});
 });
 
 async function example() {
