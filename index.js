@@ -16,8 +16,8 @@ const downloadPicture = async (picUrl) => {
   const ftpClient = new Client(0);
   const remotePath = "/rezeptwelt/" + picUrl;
   const localPath = path.join(__dirname, "rezeptwelt", picUrl);
-  console.log(remotePath);
-  console.log(localPath);
+  console.log(remotePath, "<- remotePath", 19);
+  console.log(localPath, "<- localPath", 20);
   try {
     await ftpClient.access({
       host: process.env.FTP_HOST,
