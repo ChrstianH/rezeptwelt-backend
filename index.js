@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 8080;
 const downloadPicture = async (picUrl) => {
   const ftpClient = new Client(0);
   const remotePath = "/rezeptwelt/" + picUrl + ".jpg";
-  const localPath = path.join(__dirname, picUrl + ".jpg");
+  const localPath = path.join(__dirname, "rezeptwelt", picUrl + ".jpg");
   console.log(remotePath);
   console.log(localPath);
   try {
@@ -43,7 +43,7 @@ app.get("/", (req, res) => {
 app.get("/getImage", (req, res) => {
   const imageName = req.query.imageName;
   console.log(imageName);
-  const filePath = path.join(__dirname, imageName);
+  downloadPicture(imageName);
   //res.send(filePath, (err) => {
   res.sendFile(filePath, (err) => {
     if (err) {
