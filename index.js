@@ -15,7 +15,7 @@ const PORT = process.env.PORT || 8080;
 const downloadPicture = async (picUrl) => {
   const ftpClient = new Client(0);
   picDirs = picUrl.split("/");
-  picDirs.pop(2);
+  picDirs.unshift(2);
   const remotePath = picUrl;
   const localPath = path.join(__dirname, "rezeptwelt", picDirs.join("/"));
   console.log(remotePath, "<- remotePath", 19);
