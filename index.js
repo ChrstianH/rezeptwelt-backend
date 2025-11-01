@@ -16,7 +16,8 @@ const downloadPicture = async (picUrl) => {
   const ftpClient = new Client(0);
   const remotePath = "/rezeptwelt/" + picUrl + ".jpg";
   const localPath = path.join(__dirname, picUrl + ".jpg");
-
+  console.log(remotePath);
+  console.log(localPath);
   try {
     await ftpClient.access({
       host: process.env.FTP_HOST,
@@ -39,8 +40,8 @@ app.get("/", (req, res) => {
   res.send("Hello from Rezeptwelt Backend!");
 });
 
-app.get("/getImage/:imageName", (req, res) => {
-  const imageName = req.params.imageName;
+app.get("/getImage", (req, res) => {
+  const imageName = req.query.imageName;
   console.log(imageName);
   const filePath = path.join(__dirname, imageName);
   //res.send(filePath, (err) => {
