@@ -14,8 +14,8 @@ app.use(express.urlencoded({ extended: false }));
 const PORT = process.env.PORT || 8080;
 const downloadPicture = async (picUrl) => {
   const ftpClient = new Client(0);
-  const remotePath = "/rezeptwelt/" + picUrl + ".jpg";
-  const localPath = path.join(__dirname, "rezeptwelt", picUrl + ".jpg");
+  const remotePath = "/rezeptwelt/" + picUrl;
+  const localPath = path.join(__dirname, "rezeptwelt", picUrl);
   console.log(remotePath);
   console.log(localPath);
   try {
