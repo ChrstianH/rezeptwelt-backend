@@ -32,7 +32,7 @@ const downloadPicture = async (picUrl) => {
       port: process.env.FTP_PORT,
     });
 
-    await ftpClient.downloadTo(localPath, process.env.FTP_HOST + remotePath);
+    await ftpClient.downloadTo(localPath, remotePath);
     console.log(`Datei erfolgreich heruntergeladen: ${remotePath}`);
   } catch (err) {
     console.error("Fehler beim FTP-Download:", err);
