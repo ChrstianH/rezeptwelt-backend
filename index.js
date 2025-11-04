@@ -49,10 +49,10 @@ app.get("/", (req, res) => {
   res.send("Hello from Rezeptwelt Backend!");
 });
 
-app.get("/getImage", (req, res) => {
+app.get("/getImage", async (req, res) => {
   const imageName = req.query.imageName;
   console.log(imageName);
-  downloadPicture(imageName);
+  await downloadPicture(imageName);
   //res.send(filePath, (err) => {
   //res.sendFile(filePath, (err) => {
   //  if (err) {
