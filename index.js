@@ -6,6 +6,7 @@ const { Client } = require("basic-ftp");
 const { downloadTo } = require("basic-ftp/dist/transfer");
 require("dotenv").config();
 const path = require("path");
+const fs = require("fs");
 
 app.use(cors());
 app.use(express.json());
@@ -21,6 +22,7 @@ const downloadPicture = async (picUrl) => {
   const localPath = path.join(__dirname, "rezeptwelt", picDirs.join("/"));
   console.log(remotePath, "<- remotePath", 19);
   console.log(localPath, "<- localPath", 20);
+  fs.mkdirSync(path.dirname(localPath), { recursive: true });
   try {
     await ftpClient.access({
       host: process.env.FTP_HOST,
