@@ -30,12 +30,6 @@ const downloadPicture = async (picUrl) => {
       port: process.env.FTP_PORT,
     });
 
-    console.log(
-      await ftpClient.list(
-        "/rezeptwelt/recipePhotos/bddae62f-aae0-4d2e-bd3d-fd50ac86be53"
-      ),
-      36
-    );
     await ftpClient.downloadTo(localPath, process.env.FTP_HOST + remotePath);
     console.log(`Datei erfolgreich heruntergeladen: ${remotePath}`);
   } catch (err) {
