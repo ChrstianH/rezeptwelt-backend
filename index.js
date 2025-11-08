@@ -24,14 +24,17 @@ const downloadPicture = async (picUrl) => {
   console.log(remotePath, "<- remotePath", 23);
   console.log(localPath, "<- localPath", 24);
   fs.mkdirSync(path.dirname(localPath), { recursive: true });
-  fs.readdirSync(path.dirname(localPath)).forEach((file) => {
-    if (file === path.basename(localPath)) {
-      console.log("Datei existiert bereits:", localPath, 28);
-      return;
-    } else {
-      console.log(file, 32);
+
+  fs.readdirSync(path.dirname(localPath), { recursive: true }).forEach(
+    (file) => {
+      if (file === path.basename(localPath)) {
+        console.log("Datei existiert bereits:", localPath, 28);
+        return;
+      } else {
+        console.log(file, 32);
+      }
     }
-  });
+  );
   try {
     await ftpClient.access({
       host: process.env.FTP_HOST,
