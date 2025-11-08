@@ -31,6 +31,7 @@ const downloadPicture = async (picUrl) => {
       user: process.env.FTP_USER,
       password: process.env.FTP_PASSWORD,
       secure: true,
+      mode: "passive",
       port: process.env.FTP_PORT,
     });
 
