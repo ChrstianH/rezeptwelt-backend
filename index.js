@@ -7,7 +7,6 @@ const { downloadTo } = require("basic-ftp/dist/transfer");
 require("dotenv").config();
 const path = require("path");
 const fs = require("fs");
-const e = require("express");
 
 app.use(cors());
 app.use(express.json());
@@ -24,17 +23,8 @@ const downloadPicture = async (picUrl) => {
   console.log(remotePath, "<- remotePath", 23);
   console.log(localPath, "<- localPath", 24);
   fs.mkdirSync(path.dirname(localPath), { recursive: true });
-
-  fs.readdirSync(path.dirname(localPath), { recursive: true }).forEach(
-    (file) => {
-      if (file === path.basename(localPath)) {
-        console.log("Datei existiert bereits:", localPath, 28);
-        return;
-      } else {
-        console.log(file, 32);
-      }
-    }
-  );
+  const content = fs.readdirSync(path.dirname(localPath), { recursive: true });
+  console.log(content, "<- content", 27);
   try {
     await ftpClient.access({
       host: process.env.FTP_HOST,
