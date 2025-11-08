@@ -15,16 +15,22 @@ app.use(express.urlencoded({ extended: false }));
 const PORT = process.env.PORT || 8080;
 const downloadPicture = async (picUrl) => {
   const ftpClient = new Client(0);
-  picDirs = picUrl.split("/");
+  console.log(picUrl, "<- picUrl", 18);
+
+  const picDirs = picUrl.split("/");
+  console.log(picDirs.slice(1), "<- picDirs.slice(1)", 19);
   picDirs.shift();
   picDirs.shift();
-  const remotePath = picUrl;
+  const remotePath = "/rezeptwelt/" + picUrl;
   const localPath = path.join(__dirname, "rezeptwelt", picDirs.join("/"));
-  console.log(remotePath, "<- remotePath", 23);
-  console.log(localPath, "<- localPath", 24);
+  console.log(remotePath, "<- remotePath", 24);
+  console.log(localPath, "<- localPath", 25);
   fs.mkdirSync(path.dirname(localPath), { recursive: true });
   const content = fs.readdirSync(path.dirname(localPath), { recursive: true });
-  console.log(content, "<- content", 27);
+  console.log(content, "<- content", 28);
+  content.forEach((file) => {
+    console.log(file.entries, "<- file", 30);
+  });
   try {
     await ftpClient.access({
       host: process.env.FTP_HOST,
