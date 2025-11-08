@@ -22,7 +22,7 @@ const downloadPicture = async (picUrl) => {
   picDirs.shift();
   picDirs.shift();
   const remotePath = "/rezeptwelt/" + picUrl;
-  const localPath = path.join(__dirname, "rezeptwelt", picDirs.join("/"));
+  const localPath = path.join(__dirname, "rezeptwelt", picUrl);
   console.log(remotePath, "<- remotePath", 24);
   console.log(localPath, "<- localPath", 25);
   fs.mkdirSync(path.dirname(localPath), { recursive: true });
