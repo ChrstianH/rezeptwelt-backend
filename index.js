@@ -17,9 +17,15 @@ const downloadPicture = async (picUrl) => {
   const ftpClient = new Client(0);
 
   const remotePath = `/rezeptwelt/${picUrl}.jpg`;
-  const localPath = path.join(__dirname, "rezeptwelt", `${picUrl}.jpg`);
+  const localPath = path.join(
+    __dirname,
+    "tmp",
+    "images",
+    "rezeptwelt",
+    `${picUrl}.jpg`
+  );
   try {
-    await fs.mkdir(path.dirname(localPath), { recursive: true });
+    await fs.mkdirSync(path.dirname(localPath), { recursive: true });
     await ftpClient.access({
       host: process.env.FTP_HOST,
       user: process.env.FTP_USER,
