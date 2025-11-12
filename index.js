@@ -15,23 +15,19 @@ app.use(express.urlencoded({ extended: false }));
 const PORT = process.env.PORT || 8080;
 const downloadPicture = async (picUrl) => {
   const ftpClient = new Client(0);
-  console.log(picUrl, "<- picUrl", new Error().lineNumber);
 
   const picDirs = picUrl.split("/");
-  console.log(picDirs.slice(1), "<- picDirs.slice(1)", new Error().lineNumber);
   picDirs.shift();
   picDirs.shift();
   const remotePath = "/rezeptwelt/" + picUrl + ".jpg";
   const localPath = path.join(__dirname, "rezeptwelt", picUrl + ".jpg");
-  console.log(remotePath, "<- remotePath", new Error().lineNumber);
-  console.log(localPath, "<- localPath", new Error().lineNumber);
   fs.mkdirSync(path.dirname(localPath), { recursive: true });
   const content = fs.readdirSync(path.join(__dirname, "rezeptwelt"), {
     recursive: true,
   });
-  console.log(content, "<- content", new Error().lineNumber);
+  console.log(content, "<- content", 28);
   content.forEach((file) => {
-    console.log(file.entries, "<- file", new Error().lineNumber);
+    console.log(file.entries, "<- file", 30);
   });
   try {
     await ftpClient.access({
@@ -58,7 +54,6 @@ app.get("/", (req, res) => {
 
 app.get("/getImage", async (req, res) => {
   const imageName = req.query.imageName;
-  console.log(imageName, "<- imageName", new Error().lineNumber);
   await downloadPicture(imageName);
   //res.send(filePath, (err) => {
   //res.sendFile(filePath, (err) => {
