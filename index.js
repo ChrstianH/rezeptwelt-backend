@@ -55,7 +55,7 @@ app.get("/", (req, res) => {
 app.get("/getImage", async (req, res) => {
   const imageName = req.query.imageName;
   await downloadPicture(imageName);
-  res.send(filePath, (err) => {
+  res.send(imageName, (err) => {
     //res.sendFile(filePath, (err) => {
     if (err) {
       console.error("Fehler beim Senden der Datei:", err);
