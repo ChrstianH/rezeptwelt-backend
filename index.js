@@ -16,27 +16,17 @@ const PORT = process.env.PORT || 8080;
 const downloadPicture = async (picUrl) => {
   const ftpClient = new Client(0);
 
-  const picDirs = picUrl.split("/");
-  picDirs.shift();
-  picDirs.shift();
-  const remotePath = "/rezeptwelt/" + picUrl + ".jpg";
-  const localPath = path.join(__dirname, "rezeptwelt", picUrl + ".jpg");
-  fs.mkdirSync(path.dirname(localPath), { recursive: true });
-  const content = fs.readdirSync(path.join(__dirname, "rezeptwelt"), {
-    recursive: true,
-  });
-  console.log(content, "<- content", 28);
-  content.forEach((file) => {
-    console.log(file.entries, "<- file", 30);
-  });
+  const remotePath = `/rezeptwelt/${picUrl}.jpg`;
+  const localPath = path.join(__dirname, "rezeptwelt", `${picUrl}.jpg`);
   try {
+    await fs.mkdir(path.dirname(localPath), { recursive: true });
     await ftpClient.access({
       host: process.env.FTP_HOST,
       user: process.env.FTP_USER,
       password: process.env.FTP_PASSWORD,
       secure: true,
       mode: "passive",
-      port: process.env.FTP_PORT,
+      port: parseInt(process.env.FTP_PORT, 10),
     });
 
     await ftpClient.downloadTo(localPath, remotePath);
