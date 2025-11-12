@@ -11,6 +11,10 @@ const fs = require("fs");
 app.use(cors());
 app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
+app.use(
+  "/static-images",
+  express.static(path.join(__dirname, "tmp", "images"))
+);
 
 const PORT = process.env.PORT || 8080;
 const downloadPicture = async (picUrl) => {
@@ -51,13 +55,13 @@ app.get("/", (req, res) => {
 app.get("/getImage", async (req, res) => {
   const imageName = req.query.imageName;
   await downloadPicture(imageName);
-  //res.send(filePath, (err) => {
-  //res.sendFile(filePath, (err) => {
-  //  if (err) {
-  //    console.error("Fehler beim Senden der Datei:", err);
-  //    res.status(500).send("Datei nicht gefunden.");
-  //  }
-  //});
+  res.send(filePath, (err) => {
+    //res.sendFile(filePath, (err) => {
+    if (err) {
+      console.error("Fehler beim Senden der Datei:", err);
+      res.status(500).send("Datei nicht gefunden.");
+    }
+  });
 });
 
 async function example() {
