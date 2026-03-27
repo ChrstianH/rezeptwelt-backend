@@ -95,10 +95,10 @@ const con = mysql.createConnection({
   port: process.env.DB_PORT,
 });
 
-// Get highest rated recipes
+// Get most recent recipes
 app.get("/getMostPopular", (_req, res) => {
   con.query(
-    "SELECT id, image_url, name, description FROM recipes ORDER BY rating DESC LIMIT 3",
+    "SELECT id, image_url, name, description FROM recipes ORDER BY created_at DESC LIMIT 3",
     (err, result) => {
       if (err) throw err;
       res.send(result);
