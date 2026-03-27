@@ -13,7 +13,7 @@ app.use(express.json());
 app.use(express.urlencoded({ extended: false }));
 app.use(
   "/static-images",
-  express.static(path.join(__dirname, "tmp", "images"))
+  express.static(path.join(__dirname, "tmp", "images")),
 );
 
 const PORT = process.env.PORT || 8080;
@@ -26,7 +26,7 @@ const downloadPicture = async (picUrl) => {
     "tmp",
     "images",
     "rezeptwelt",
-    `${picUrl}.jpg`
+    `${picUrl}.jpg`,
   );
   try {
     await fs.mkdirSync(path.dirname(localPath), { recursive: true });
@@ -54,7 +54,9 @@ app.get("/", (req, res) => {
 
 app.get("/getImage", async (req, res) => {
   const imageName = req.query.imageName;
-  await downloadPicture(imageName);
+  if (imageName) {
+    await downloadPicture(imageName);
+  }
   res.send(imageName, (err) => {
     //res.sendFile(filePath, (err) => {
     if (err) {
@@ -100,18 +102,18 @@ app.get("/getMostPopular", (_req, res) => {
     (err, result) => {
       if (err) throw err;
       res.send(result);
-    }
+    },
   );
 });
 
-// Get most recent recipes
-app.get("/getMostRecent", (_req, res) => {
+// Get all recipes
+app.get("/getAllRecipes", (_req, res) => {
   con.query(
-    "SELECT id, image_url, name, description FROM recipes ORDER BY created_at DESC LIMIT 3",
+    "SELECT id, image_url, name, description FROM recipes ORDER BY created_at DESC",
     (err, result) => {
       if (err) throw err;
       res.send(result);
-    }
+    },
   );
 });
 
@@ -126,7 +128,7 @@ app.get("/recipe", (req, res) => {
       console.log(result[0].image_url);
       downloadPicture(result[0].image_url);
       res.send(result);
-    }
+    },
   );
 });
 
@@ -139,7 +141,7 @@ app.get("/getInstructions", (req, res) => {
     (err, result) => {
       if (err) throw err;
       res.send(result);
-    }
+    },
   );
 });
 
@@ -153,7 +155,7 @@ app.get("/getIngredients", (req, res) => {
       if (err) throw err;
       console.log(result);
       res.send(result);
-    }
+    },
   );
 });
 
